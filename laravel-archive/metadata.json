@@ -1,0 +1,6 @@
+{
+  "name": "PF-193 — Mirzaobod Tumani Axborot-Tahlil Platformasi",
+  "description": "O‘zbekiston Respublikasi Prezidentining 2026-yil 11-sentabrdagi PF-193-son Farmoni doirasida Mirzaobod tumanida amalga oshirilgan ishlarni monitoring qilish axborot-tahlil tizimi",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

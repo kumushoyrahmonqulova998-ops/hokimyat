@@ -1,0 +1,6 @@
+{
+  "name": "Mirzaobod PF-193 Monitoring",
+  "description": "Mirzaobod tumani hokimligi uchun PF-193 farmoni ijrosini nazorat qilish, ma'lumotlarni tahlil qilish va tarixiy hisobot yuritish axborot platformasi.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
