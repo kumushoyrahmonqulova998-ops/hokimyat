@@ -53,11 +53,42 @@ const isDirectRun =
   process.argv[1] &&
   (process.argv[1].endsWith('server.ts') || process.argv[1].endsWith('server.js'));
 
+async function listenWithPortFallback(app: express.Express, requestedPort: number) {
+  const maxPort = Math.min(requestedPort + 10, 65535);
+
+  for (let port = requestedPort; port <= maxPort; port += 1) {
+    try {
+      return await new Promise<number>((resolve, reject) => {
+        const server = app.listen(port, '0.0.0.0');
+        const onError = (error: Error) => reject(error);
+        server.once('error', onError);
+        server.once('listening', () => {
+          server.off('error', onError);
+          const address = server.address();
+          resolve(typeof address === 'object' && address ? address.port : port);
+        });
+      });
+    } catch (error) {
+      if (!(error instanceof Error) || !('code' in error) || error.code !== 'EADDRINUSE') {
+        throw error;
+      }
+
+      console.warn(`Port ${port} is already in use; trying the next port.`);
+    }
+  }
+
+  throw new Error(`Ports ${requestedPort}-${maxPort} are already in use.`);
+}
+
 if (isDirectRun) {
-  const PORT = Number(process.env.PORT || 3000);
-  createAppServer().then(({ app }) => {
-    app.listen(PORT, '0.0.0.0', () => {
-      console.log(`Mirzaobod PF-193 Monitoring server listening on http://0.0.0.0:${PORT}`);
+  const requestedPort = Number(process.env.PORT || 3000);
+  createAppServer()
+    .then(async ({ app }) => {
+      const port = await listenWithPortFallback(app, requestedPort);
+      console.log(`Mirzaobod PF-193 Monitoring server listening on http://0.0.0.0:${port}`);
+    })
+    .catch((error: unknown) => {
+      console.error('Failed to start Mirzaobod PF-193 Monitoring server:', error);
+      process.exitCode = 1;
     });
-  });
 }
