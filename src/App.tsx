@@ -1,4 +1,10 @@
-import { useEffect, useState, useCallback } from 'react';
+import {
+  useEffect,
+  useState,
+  useCallback,
+  lazy,
+  Suspense,
+} from 'react';
 import {
   LayoutDashboard,
   FileBarChart2,
@@ -35,9 +41,23 @@ import type {
 import { EmblemMark } from './components/EmblemMark.tsx';
 import { LoginPortal } from './components/LoginPortal.tsx';
 import { DataUploadModal } from './components/DataUploadModal.tsx';
-import { DashboardView } from './components/DashboardView.tsx';
-import { DirectionView } from './components/DirectionView.tsx';
-import { ReportsView } from './components/ReportsView.tsx';
+const DashboardView = lazy(() =>
+  import('./components/DashboardView.tsx').then((module) => ({
+    default: module.DashboardView,
+  }))
+);
+
+const DirectionView = lazy(() =>
+  import('./components/DirectionView.tsx').then((module) => ({
+    default: module.DirectionView,
+  }))
+);
+
+const ReportsView = lazy(() =>
+  import('./components/ReportsView.tsx').then((module) => ({
+    default: module.ReportsView,
+  }))
+);
 import { ApprovalsView, HistoryLedgerView } from './components/ApprovalsAndHistoryView.tsx';
 import {
   HelpCenterView,
