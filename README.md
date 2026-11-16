@@ -104,3 +104,30 @@ npm run lint
 npm run build
 ```
 `tests/platform.test.ts` fayli 4 ta portal autentifikatsiyasi, RBAC/mahalla izolyatsiyasi, CSRF, manfiy qiymat rad etilishi, Excel/JSON atomik importi, tarixiy hisobotlar, 4 xil eksport va XSS/SQLi himoyasini tekshiradi.
+
+---
+
+## 8. Netlify va production hosting
+
+`netlify.toml` frontend uchun `npm run build` va `dist` publish katalogini
+sozlaydi, SPA sahifalariga fallback beradi. Bu sozlama faqat frontendni build
+qiladi; **ilovani to'liq production'da ishlatish uchun yetarli emas**.
+
+Ilovaning autentifikatsiyasi va barcha `/api/*` endpointlari Express serverida,
+ma'lumotlar esa `better-sqlite3` orqali lokal SQLite faylida saqlanadi. Netlify
+statik deployi Express serverini ishga tushirmaydi va doimiy SQLite saqlashni
+kafolatlamaydi. Shuning uchun bu deploy bilan login, API va ma'lumotlar bazasi
+ishlamaydi; haqiqiy foydalanuvchilar yoki ma'lumotlar bilan production sifatida
+ishlatmang.
+
+To'liq deploydan oldin backendni doimiy disk/ma'lumotlar bazasini qo'llaydigan
+Node.js hostingiga joylashtirish, `DB_PATH` va kuchli `SESSION_SECRET` ni
+hostingning maxfiy environment sozlamalarida belgilash, so'ng frontend va
+backendni xavfsiz ulash kerak. Hozirgi frontend API so'rovlarini nisbiy
+`/api/*` yo'llariga yuboradi; backend manzili berilmagani uchun API URL
+to'qib kiritilmadi. Haqiqiy backend manzili va autentifikatsiya/CORS/cookie
+sozlamalari aniqlanmaguncha Netlify production deploy bajarilmaydi.
+
+Muhit o'zgaruvchilari: `DB_PATH` va `SESSION_SECRET` backend uchun; `APP_URL`
+va `GEMINI_API_KEY` `.env.example` da ko'rsatilgan ixtiyoriy sozlamalardir.
+Haqiqiy secretlarni GitHub'ga qo'ymang.

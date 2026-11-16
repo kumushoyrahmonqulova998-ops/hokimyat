@@ -9,5 +9,6 @@ coverage/
 !.env.example
 /data/*.db*
 /data/*.sqlite*
+.netlify/
 
 hokimyat/
