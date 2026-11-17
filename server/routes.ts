@@ -298,7 +298,7 @@ export function registerApiRoutes(app: Express, db: Database.Database): void {
           severity: 'warning',
           details: { portalRole },
         });
-        res.status(401).json({ error: "Login yoki parol noto'g'ri." });
+        res.status(401).json({ error: 'Login yoki parol xato.' });
         return;
       }
 
@@ -363,7 +363,7 @@ export function registerApiRoutes(app: Express, db: Database.Database): void {
         res.status(401).json({
           error: lockUntil
             ? `Parol ${maxAttempts} marta noto'g'ri kiritildi. Hisob ${lockoutMin} daqiqaga bloklandi.`
-            : `Login yoki parol noto'g'ri. Qolgan urinishlar: ${Math.max(0, maxAttempts - attempts)}`,
+            : `Login yoki parol xato. Qolgan urinishlar: ${Math.max(0, maxAttempts - attempts)}`,
         });
         return;
       }
