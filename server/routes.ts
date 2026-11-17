@@ -329,7 +329,7 @@ export function registerApiRoutes(app: Express, db: Database.Database): void {
           details: { attemptedPortal: portalRole, actualRole: user.role_slug },
         });
         res.status(403).json({
-          error: `Ushbu kirish sahifasi faqat "${portalRole}" roli uchun. Tegishli kirish oynasidan foydalaning.`,
+          error: "Bo'lim xato. Tegishli kirish bo'limini tanlang.",
         });
         return;
       }

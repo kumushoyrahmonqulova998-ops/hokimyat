@@ -122,6 +122,7 @@ describe('Mirzaobod PF-193 Monitoring Platform — Full Integration & Security S
       },
     });
     assert.equal(wrongPortal.status, 403);
+    assert.equal(wrongPortal.data.error, "Bo'lim xato. Tegishli kirish bo'limini tanlang.");
 
     const wrongUsername = await req('/api/auth/login', {
       method: 'POST',
