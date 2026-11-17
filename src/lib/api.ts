@@ -33,7 +33,14 @@ export async function apiJson<T>(url: string, options: RequestInit = {}): Promis
   try {
     data = text ? JSON.parse(text) : {};
   } catch {
-    data = { error: text || 'Server javobi noto‘g‘ri.' };
+    const contentType = res.headers.get('content-type') || '';
+    const isHtml =
+      contentType.includes('text/html') || /^\s*<!doctype html|^\s*<html/i.test(text);
+    data = {
+      error: isHtml
+        ? 'Server API javobi HTML formatida keldi. Backend xizmatini tekshiring.'
+        : text || 'Server javobi noto‘g‘ri.',
+    };
   }
 
   if (!res.ok) {

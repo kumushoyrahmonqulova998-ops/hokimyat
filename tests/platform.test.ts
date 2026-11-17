@@ -122,6 +122,29 @@ describe('Mirzaobod PF-193 Monitoring Platform — Full Integration & Security S
       },
     });
     assert.equal(wrongPortal.status, 403);
+    assert.equal(wrongPortal.data.error, "Bo'lim xato. Tegishli kirish bo'limini tanlang.");
+
+    const wrongUsername = await req('/api/auth/login', {
+      method: 'POST',
+      body: {
+        username: 'unknown_user',
+        password: 'WrongPassword!2026',
+        portalRole: 'super_admin',
+      },
+    });
+    assert.equal(wrongUsername.status, 401);
+    assert.equal(wrongUsername.data.error, 'Login yoki parol xato.');
+
+    const wrongPassword = await req('/api/auth/login', {
+      method: 'POST',
+      body: {
+        username: 'super_test',
+        password: 'WrongPassword!2026',
+        portalRole: 'super_admin',
+      },
+    });
+    assert.equal(wrongPassword.status, 401);
+    assert.match(wrongPassword.data.error, /^Login yoki parol xato\./);
 
     // Super admin logs in via super_admin portal
     const sLogin = await req('/api/auth/login', {

@@ -3,15 +3,15 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "scripts": {
-    "dev": "tsx server.ts",
-    "start": "node server.ts",
-    "build": "vite build",
-    "preview": "vite preview",
-    "clean": "rm -rf dist server.js",
-    "lint": "tsc --noEmit",
-    "test": "tsx --test tests/platform.test.ts"
-  },
+"scripts": {
+  "dev": "tsx server.ts",
+  "start": "node server.ts",
+  "build": "vite build",
+  "preview": "vite preview",
+  "clean": "rm -rf dist server.js",
+  "lint": "tsc --noEmit",
+  "test": "tsx --test tests/platform.test.ts"
+},
   "dependencies": {
     "@google/genai": "^2.4.0",
     "@tailwindcss/vite": "^4.3.3",
