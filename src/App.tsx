@@ -349,7 +349,7 @@ export default function App() {
   const triggerDataRefresh = () => setRefreshSignal((s) => s + 1);
 
   return (
-    <div className="min-h-screen bg-[#F4F6F9] dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex">
+    <div className="app-shell overflow-hidden bg-[#F4F6F9] dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex">
       {/* Mobile Sidebar Backdrop */}
       {sidebarOpen && (
         <div
@@ -360,7 +360,7 @@ export default function App() {
 
       {/* Left Navigation Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-[268px] bg-[#0B1E3B] text-slate-200 flex flex-col border-r border-slate-800 transition-transform duration-200 lg:static lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 h-full min-h-0 w-[268px] bg-[#0B1E3B] text-slate-200 flex flex-col border-r border-slate-800 transition-transform duration-200 lg:static lg:translate-x-0 ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -384,7 +384,7 @@ export default function App() {
           </button>
         </div>
 
-        <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-6 text-xs">
+        <nav className="flex-1 min-h-0 overflow-y-auto overscroll-contain panel-scroll px-3 py-4 space-y-6 text-xs">
           {/* ASOSIY */}
           <div>
             <div className="px-3 mb-2 text-[11px] font-semibold text-slate-400">Asosiy</div>
@@ -591,9 +591,9 @@ export default function App() {
       </aside>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 min-h-0 h-full overflow-y-auto overscroll-contain panel-scroll">
         {/* Top Header */}
-        <header className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3 sticky top-0 z-30">
+        <header className="relative bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3 z-30">
           <div className="flex items-center gap-3 min-w-0">
             <button
               type="button"
